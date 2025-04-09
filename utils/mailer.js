@@ -1,13 +1,11 @@
-const fs = require('fs');
 const { google } = require('googleapis');
 const nodemailer = require('nodemailer');
 require('dotenv').config();
 
-// Load credentials.json file
-const credentials = JSON.parse(fs.readFileSync('credentials.json', 'utf8'));
-
 // OAuth2 Client Setup
-const { client_id, client_secret, redirect_uris } = credentials.web; // FIXED HERE
+const client_id = process.env.GMAIL_CLIENT_ID;
+const client_secret = process.env.GMAIL_CLIENT_SECRET;
+const redirect_uris = [process.env.GMAIL_REDIRECT_URI];
 const oAuth2Client = new google.auth.OAuth2(client_id, client_secret, redirect_uris[0]);
 
 // Set your refresh token
