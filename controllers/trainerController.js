@@ -108,7 +108,6 @@ const editTrainer = async (req, res) => {
 
 // Get Trainer by ID
 const Member = require('../models/Member'); // Import Member model
-const Trainer = require('../models/Trainer'); // Import Trainer model
 
 const getTrainerById = async (req, res) => {
     try {
@@ -151,41 +150,39 @@ const getTrainerById = async (req, res) => {
     }
 };
 
-
-
-
 const getTrainers = async (req, res) => {
     try {
         const trainers = await Trainer.find();
 
         // Map over the trainers to include the passport photo in base64 format
         const trainersWithPhotos = trainers.map(trainer => ({
+        const trainers = await Trainer.find();
+            passport_photo: trainer.passport_photo 
+        // Map over the trainers to include the passport photo in base64 formatoto}` 
+        const trainersWithPhotos = trainers.map(trainer => ({
             ...trainer.toObject(),
             passport_photo: trainer.passport_photo 
                 ? `data:${trainer.photo_mime_type};base64,${trainer.passport_photo}` 
                 : null
-        }));
-
+        }));status(500).json({ error: 'Error fetching trainers', details: error.message });
+    }
         res.status(200).json(trainersWithPhotos);
     } catch (error) {
         res.status(500).json({ error: 'Error fetching trainers', details: error.message });
-    }
-};
-
-// Delete Trainer
-const deleteTrainer = async (req, res) => {
-    try {
+    } deleteTrainer = async (req, res) => {
+};  try {
         const { trainerID } = req.params;
+// Delete TraineretedTrainer = await Trainer.findOneAndDelete({ trainerID });
+const deleteTrainer = async (req, res) => {
+    try {f (!deletedTrainer) {
+        const { trainerID } = req.params; error: "Trainer not found" });
         const deletedTrainer = await Trainer.findOneAndDelete({ trainerID });
 
-        if (!deletedTrainer) {
+        if (!deletedTrainer) {rainer deleted successfully", trainer: deletedTrainer });
             return res.status(404).json({ error: "Trainer not found" });
-        }
-
+        }es.status(500).json({ error: "Server error", details: error.message });
+    }
         res.json({ message: "Trainer deleted successfully", trainer: deletedTrainer });
     } catch (error) {
-        res.status(500).json({ error: "Server error", details: error.message });
-    }
-};
-
-module.exports = { addTrainer, getTrainers, getTrainerById, editTrainer, deleteTrainer };
+        res.status(500).json({ error: "Server error", details: error.message });rainer };
+    }};module.exports = { addTrainer, getTrainers, getTrainerById, editTrainer, deleteTrainer };
